@@ -17,8 +17,9 @@ public class DataProcessor {
     private final ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public void fetchDataByIdAndProcess() {
+        String type = "IN_PROGRESS_DATA";
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM data WHERE id in (1,2,3)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM data WHERE id in (1,2,3) and name="+type)) {
 
             preparedStatement.setString(1, "PENDING");
             ResultSet resultSet = preparedStatement.executeQuery();
